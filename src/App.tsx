@@ -140,7 +140,7 @@ function App() {
             />
 
             <div className="mt-8">
-              <QRCodeDisplay dataUrl={currentStrip.composedImageUrl} />
+              <QRCodeDisplay value={`strip:${currentStrip.id}`} />
             </div>
 
             <div className="mt-8 flex space-x-4">
