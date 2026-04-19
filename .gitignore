@@ -1,11 +1,11 @@
 # dependencies
 node_modules/
 
-# production
+# production builds
 build/
 dist/
 
-# coverage
+# test coverage
 coverage/
 
 # environment files
@@ -21,11 +21,11 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# OS / editor files
-.DS_Store
-Thumbs.db
+# editor / OS files
 .vscode/
 .idea/
+.DS_Store
+Thumbs.db
 
 # misc
 .pnp
