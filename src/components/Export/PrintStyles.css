@@ -1,0 +1,48 @@
+@media print {
+  /* Hide everything except photo strip */
+  body * {
+    visibility: hidden;
+  }
+
+  #printable-strip,
+  #printable-strip * {
+    visibility: visible;
+  }
+
+  #printable-strip {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Remove margins for edge-to-edge printing */
+  @page {
+    margin: 0.25in;
+    size: 4in 8in; /* Approximate photobooth strip size */
+  }
+
+  /* Ensure image fills print area */
+  #printable-strip img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: none;
+  }
+
+  /* Hide UI elements */
+  button,
+  nav,
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* Screen-only: printable area hidden */
+#printable-strip {
+  position: fixed;
+  left: -9999px;
+  top: -9999px;
+}
