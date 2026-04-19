@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PhotoData, PhotoStrip, FilterType } from './types';
+import { PhotoData, PhotoStrip, FilterType, CaptionFont } from './types';
 import { CameraView } from './components/Camera/CameraView';
 import { PhotoStripPreview } from './components/PhotoStrip/PhotoStripPreview';
 import { ExportButtons } from './components/Export/ExportButtons';
@@ -16,8 +16,9 @@ function App() {
   const [capturedPhotos, setCapturedPhotos] = useState<PhotoData[]>([]);
   const [currentStrip, setCurrentStrip] = useState<PhotoStrip | null>(null);
   const [filter, setFilter] = useState<FilterType>('color');
+  const [captionFont, setCaptionFont] = useState<CaptionFont>('print');
   const [customText, setCustomText] = useState('');
-  
+
   const { strips, saveStrip } = useIndexedDB();
 
   const handleStartPhotobooth = () => {
@@ -25,6 +26,7 @@ function App() {
     setCapturedPhotos([]);
     setCustomText('');
     setFilter('color');
+    setCaptionFont('print');
     setCurrentStrip(null);
   };
 
@@ -44,7 +46,8 @@ function App() {
       capturedPhotos,
       customText,
       date,
-      filter
+      filter,
+      captionFont
     );
 
     const strip: PhotoStrip = {
@@ -53,6 +56,7 @@ function App() {
       customText,
       date,
       filter,
+      captionFont,
       composedImageUrl: composedUrl,
       createdAt: Date.now(),
     };
@@ -68,7 +72,9 @@ function App() {
         return (
           <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
             <h1 className="text-5xl font-bold mb-4">Photobooth</h1>
-            <p className="text-xl text-gray-600 mb-8">Capture 4 photos in classic strip style</p>
+            <p className="text-xl text-gray-600 mb-8">
+              Capture 4 photos in classic strip style
+            </p>
             <button
               onClick={handleStartPhotobooth}
               className="px-12 py-4 bg-red-600 text-white text-xl font-bold rounded-full hover:bg-red-700 transition"
@@ -99,8 +105,10 @@ function App() {
           <PhotoStripPreview
             photos={capturedPhotos}
             filter={filter}
+            captionFont={captionFont}
             customText={customText}
             onFilterChange={setFilter}
+            onFontChange={setCaptionFont}
             onTextChange={setCustomText}
             onRetake={() => setCurrentScreen('camera')}
             onContinue={handleContinueToExport}
@@ -127,7 +135,7 @@ function App() {
         return (
           <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-8">
             <h2 className="text-3xl font-bold mb-8">Your Photo Strip</h2>
-            
+
             <img
               src={currentStrip.composedImageUrl}
               alt="Photo strip"
@@ -158,7 +166,6 @@ function App() {
               </button>
             </div>
 
-            {/* Hidden printable div */}
             <div id="printable-strip">
               <img src={currentStrip.composedImageUrl} alt="Photo strip for printing" />
             </div>

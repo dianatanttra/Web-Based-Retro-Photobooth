@@ -22,7 +22,7 @@ export const FLASH_DURATION_MS = 200;
 export const PHOTO_INTERVAL_MS = 4000; // 4 seconds between captures
 
 // Text constraints
-export const MAX_CUSTOM_TEXT_LENGTH = 40;
+export const MAX_CUSTOM_TEXT_LENGTH = 60;
 
 // IndexedDB
 export const DB_NAME = 'PhotoboothDB';
